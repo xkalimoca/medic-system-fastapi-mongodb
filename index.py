@@ -7,6 +7,8 @@ from routes.cita import cita
 from docs import tags_metadata
 
 app = FastAPI(
+  docs_url="/api/v2/docs",
+  redoc_url="/api/v2/redocs",
   title="SWAGGER DE CRUD EN FASTAPI & MONGODB CITAS MEDICAS",
   description="",
   version="0.0.1",
