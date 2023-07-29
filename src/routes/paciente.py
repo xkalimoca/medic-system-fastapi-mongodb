@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from src.models.paciente import Paciente 
-from config.db import conn 
-from schemas.paciente import serializeDict, serializeList
+from src.config.db import conn 
+from src.schemas.paciente import serializeDict, serializeList
 from bson import ObjectId
 paciente = APIRouter() 
 

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from src.models.medico import Medico 
-from config.db import conn 
-from schemas.medico import serializeDict, serializeList
+from src.config.db import conn 
+from src.schemas.medico import serializeDict, serializeList
 from bson import ObjectId
 medico = APIRouter() 
 

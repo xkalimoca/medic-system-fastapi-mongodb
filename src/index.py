@@ -4,7 +4,7 @@ from src.routes.consultorio import consultorio
 from src.routes.paciente import paciente
 from src.routes.medico import medico
 from src.routes.cita import cita
-from docs import tags_metadata
+from src.docs import tags_metadata
 
 app = FastAPI(
   docs_url="/api/v2/docs",
