@@ -4,11 +4,11 @@ from fastapi import FastAPI, Header, HTTPException
 from pydantic import BaseModel
 
 
-fake_secret_token = "llosavargasmario"
+fake_secret_token = "testunit"
 
 fake_db = {
-    "foo": {"id": "foo", "title": "Foo", "description": "There goes my hero"},
-    "bar": {"id": "bar", "title": "Bar", "description": "The bartenders"},
+    "cita": {"id": "1", "medico": "vsabando", "fecha": "23 de agosto", "hora":"10:30 pm", "confirmacion": "SI","codigo": "28963"},
+    "paciente": {"id": "3", "name": "Minnie", "apellidos": "Yontararak","correo": "mnicha@gmail.com","telefone": "12456822"},
 }
 
 app = FastAPI()
