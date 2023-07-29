@@ -1,66 +1,93 @@
 from fastapi.testclient import TestClient
-from main import app
-from bson.objectid import ObjectId
+from .main import app
+
 
 client = TestClient(app)
 
-def test_create_user():
-    # Create a new user
+
+def test_read_item():
+    """
+    Check that the endpoint returns the correct item.
+    """
+    response = client.get("/items/foo", headers={"X-Token": "llosavargasmario"})
+    assert response.status_code == 200
+    assert response.json() == {
+        "id": "foo",
+        "title": "Foo",
+        "description": "There goes my hero",
+    }
+
+
+def test_read_item_bad_token():
+    """
+    Check that the endpoint returns an error if the token is invalid.
+    """
+    
+    response = client.get("/items/foo", headers={"X-Token": "mendozamario"})
+    
+    assert response.status_code == 400
+    
+    assert response.json() == {
+        'detail': 'Invalid X-Token header'
+    }
+
+
+def test_read_inexistent_item():
+    """
+    Check that the endpoint returns an error if the item does not exist.
+    """
+    
+    response = client.get("/items/baz", headers={"X-Token": "llosavargasmario"})
+    
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Item not found"}
+
+
+def test_create_item():
+    """
+    Check that the endpoint creates an item.
+    """
+    
     response = client.post(
-        "/users/",
+        '/items/',
+        headers={"X-Token": "llosavargasmario"},
+        json={"id": "foobar", "title": "Foo Bar", "description": "The Foo Barters"}
+    )
+    
+    assert response.status_code == 200
+    assert response.json() == {
+        "id": "foobar",
+        "title": "Foo Bar",
+        "description": "The Foo Barters",
+    }
+
+
+def test_create_item_bad_token():
+    """
+    Check that the endpoint returns an error if the token is invalid.
+    """
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "mendozamario"},
+        json={"id": "bazz", "title": "Bazz", "description": "Drop the bazz"},
+    )
+    
+    assert response.status_code == 400
+    print(response.json())
+    assert response.json() == {"detail": "Invalid X-Token header"}
+
+
+def test_create_existing_item():
+    response = client.post(
+        "/items/",
+        headers={"X-Token": "llosavargasmario"},
         json={
-            "_id": ObjectId("64bed4bf3c8a59fd9439b6d1"),
-            "name": "juan",
-            "email": "juanx@gmail.com",
-            "username": "juanx",
-            "password": "1234"
+            "id": "foobar",
+            "title": "The Foo ID Stealers",
+            "description": "There goes my stealer",
         },
     )
-    assert response.status_code == 200
-    assert response.json() == {
-        "_id": str(ObjectId("64bed4bf3c8a59fd9439b6d1")),
-        "name": "juan",
-        "email": "juanx@gmail.com",
-        "username": "juanx",
-        "password": "1234"
-    }
-
-def test_read_user():
-    # Read a user
-    response = client.get("/users/64bed4bf3c8a59fd9439b6d1")
-    assert response.status_code == 200
-    assert response.json() == {
-        "_id": str(ObjectId("64bed4bf3c8a59fd9439b6d1")),
-        "name": "juan",
-        "email": "juanx@gmail.com",
-        "username": "juanx",
-        "password": "1234"
-    }
-
-def test_update_user():
-    # Update a user
-    response = client.put(
-        "/users/64bed4bf3c8a59fd9439b6d1",
-        json={
-            "_id": ObjectId("64bed4bf3c8a59fd9439b6d1"),
-            "name": "juan updated",
-            "email": "juanx_updated@gmail.com",
-            "username": "juanx_updated",
-            "password": "12345"
-        },
-    )
-    assert response.status_code == 200
-    assert response.json() == {
-        "_id": str(ObjectId("64bed4bf3c8a59fd9439b6d1")),
-        "name": "juan updated",
-        "email": "juanx_updated@gmail.com",
-        "username": "juanx_updated",
-        "password": "12345"
-    }
-
-def test_delete_user():
-    # Delete a user
-    response = client.delete("/users/64bed4bf3c8a59fd9439b6d1")
-    assert response.status_code == 200
-
+    
+    assert response.status_code == 400
+    assert response.json() == {"detail": "Item already exists"}
 
