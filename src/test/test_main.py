@@ -6,17 +6,20 @@ client = TestClient(app)
 
 
 def test_read_item():
-    response = client.get("/citas/foo", headers={"X-Token": "llosavargasmario"})
+    response = client.get("/citas/juanx", headers={"X-Token": "testunit"})
     assert response.status_code == 200
     assert response.json() == {
-        "id": "foo",
-        "title": "Foo",
-        "description": "There goes my hero",
+        "id": "juanx",
+        "medico": "vsabando", 
+        "fecha": "23 de agosto", 
+        "hora":"10:30 pm", 
+        "confirmacion": "SI",
+        "codigo": "28963"
     }
 
 
 def test_read_item_bad_token():
-    response = client.get("/items/foo", headers={"X-Token": "mendozamario"})
+    response = client.get("/items/foo", headers={"X-Token": "unittest"})
     
     assert response.status_code == 400
     
@@ -26,7 +29,7 @@ def test_read_item_bad_token():
 
 
 def test_read_inexistent_item():   
-    response = client.get("/items/baz", headers={"X-Token": "llosavargasmario"})
+    response = client.get("/items/baz", headers={"X-Token": "testunit"})
     
     assert response.status_code == 404
     assert response.json() == {"detail": "Item not found"}
