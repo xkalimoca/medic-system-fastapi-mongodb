@@ -5,7 +5,7 @@ from .main import app
 client = TestClient(app)
 
 
-def test_read_item():
+def test_read_cita():
     response = client.get("/citas/juanx", headers={"X-Token": "testunit"})
     assert response.status_code == 200
     assert response.json() == {
@@ -18,8 +18,8 @@ def test_read_item():
     }
 
 
-def test_read_item_bad_token():
-    response = client.get("/items/foo", headers={"X-Token": "unittest"})
+def test_read_cita_bad_token():
+    response = client.get("/cita/juanx", headers={"X-Token": "unittest"})
     
     assert response.status_code == 400
     
@@ -28,33 +28,36 @@ def test_read_item_bad_token():
     }
 
 
-def test_read_inexistent_item():   
-    response = client.get("/items/baz", headers={"X-Token": "testunit"})
+def test_read_inexistent_cita():   
+    response = client.get("/cita/robertog", headers={"X-Token": "testunit"})
     
     assert response.status_code == 404
-    assert response.json() == {"detail": "Item not found"}
+    assert response.json() == {"detail": "Cita not found"}
 
 
-def test_create_item():
+def test_create_cita():
     response = client.post(
-        '/items/',
-        headers={"X-Token": "llosavargasmario"},
-        json={"id": "foobar", "title": "Foo Bar", "description": "The Foo Barters"}
+        '/citas/',
+        headers={"X-Token": "testunit"},
+        json={"id": "tatianat", "medico": "atorres", "fecha": "02 de julio", "hora":"12:00 pm", "confirmacion": "SI","codigo": "78416"}
     )
     
     assert response.status_code == 200
     assert response.json() == {
-        "id": "foobar",
-        "title": "Foo Bar",
-        "description": "The Foo Barters",
+        "id": "tatianat", 
+        "medico": "atorres", 
+        "fecha": "02 de julio", 
+        "hora":"12:00 pm", 
+        "confirmacion": "SI",
+        "codigo": "78416"
     }
 
 
-def test_create_item_bad_token():
+def test_create_cita_bad_token():
     response = client.post(
-        "/items/",
-        headers={"X-Token": "mendozamario"},
-        json={"id": "bazz", "title": "Bazz", "description": "Drop the bazz"},
+        "/citas/",
+        headers={"X-Token": "unittest"},
+        json={"id": "gmoran", "medico": "atorres", "fecha": "03 de julio", "hora":"11:00 pm", "confirmacion": "SI","codigo": "25798"},
     )
     
     assert response.status_code == 400
@@ -62,17 +65,20 @@ def test_create_item_bad_token():
     assert response.json() == {"detail": "Invalid X-Token header"}
 
 
-def test_create_existing_item():
+def test_create_existing_cita():
     response = client.post(
-        "/items/",
-        headers={"X-Token": "llosavargasmario"},
+        "/citas/",
+        headers={"X-Token": "testunit"},
         json={
-            "id": "foobar",
-            "title": "The Foo ID Stealers",
-            "description": "There goes my stealer",
+        "id": "tatianat", 
+        "medico": "atorres", 
+        "fecha": "02 de julio", 
+        "hora":"12:00 pm", 
+        "confirmacion": "SI",
+        "codigo": "78416",
         },
     )
     
     assert response.status_code == 400
-    assert response.json() == {"detail": "Item already exists"}
+    assert response.json() == {"detail": "Cita already exists"}
 
