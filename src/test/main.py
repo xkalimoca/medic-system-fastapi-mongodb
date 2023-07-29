@@ -8,51 +8,39 @@ fake_secret_token = "testunit"
 
 fake_db = {
     "cita": {"id": "1", "medico": "vsabando", "fecha": "23 de agosto", "hora":"10:30 pm", "confirmacion": "SI","codigo": "28963"},
-    "paciente": {"id": "3", "name": "Minnie", "apellidos": "Yontararak","correo": "mnicha@gmail.com","telefone": "12456822"},
+    "cita": {"id": "2", "medico": "dyanez", "fecha": "14 de septiembre", "hora":"8:30 pm", "confirmacion": "SI","codigo": "22015"},
 }
 
 app = FastAPI()
 
 
-class Item(BaseModel):
-    """
-    Representación de un item.
-    """
+class Cita(BaseModel):
     id: str
-    title: str
-    description: str | None = None
+    medico: str
+    fecha: str | None = None
+    hora: str
+    confirmacion: str
+    codigo: str
 
 
-@app.get("/items/{item_id}", response_model=Item)
-async def read_main(item_id: str, x_token: str | None = Header(default=None)):
-    """
-    Busca un item en la base de datos.
-    
-    :param item_id: ID del item a buscar.
-    :param x_token: Token de autenticación.
-    """
+@app.get("/citas/{cita_id}", response_model=Cita)
+async def read_main(cita_id: str, x_token: str | None = Header(default=None)):
     print('x_token', x_token)
     if x_token != fake_secret_token:
         raise HTTPException(status_code=400, detail="Invalid X-Token header")
-    if item_id not in fake_db:
-        raise HTTPException(status_code=404, detail="Item not found")
+    if cita_id not in fake_db:
+        raise HTTPException(status_code=404, detail="cita not found")
     
-    return fake_db[item_id]
+    return fake_db[cita_id]
 
 
-@app.post("/items/", response_model=Item)
-async def create_item(item: Item, x_token: str | None = Header(default=None)):
-    """
-    Crea un item en la base de datos.
-    
-    :param item: Item a crear.
-    :param x_token: Token de autenticación.
-    """
+@app.post("/citas/", response_model=Cita)
+async def create_item(cita: Cita, x_token: str | None = Header(default=None)):
     if x_token != fake_secret_token:
         raise HTTPException(status_code=400, detail="Invalid X-Token header")
-    if item.id in fake_db:
-        raise HTTPException(status_code=400, detail="Item already exists")
+    if cita.id in fake_db:
+        raise HTTPException(status_code=400, detail="cita already exists")
 
-    fake_db[item.id] = item
+    fake_db[cita.id] = cita
     
-    return item
+    return cita
