@@ -16,10 +16,6 @@ def test_read_item():
 
 
 def test_read_item_bad_token():
-    """
-    Check that the endpoint returns an error if the token is invalid.
-    """
-    
     response = client.get("/items/foo", headers={"X-Token": "mendozamario"})
     
     assert response.status_code == 400
@@ -29,11 +25,7 @@ def test_read_item_bad_token():
     }
 
 
-def test_read_inexistent_item():
-    """
-    Check that the endpoint returns an error if the item does not exist.
-    """
-    
+def test_read_inexistent_item():   
     response = client.get("/items/baz", headers={"X-Token": "llosavargasmario"})
     
     assert response.status_code == 404
@@ -41,10 +33,6 @@ def test_read_inexistent_item():
 
 
 def test_create_item():
-    """
-    Check that the endpoint creates an item.
-    """
-    
     response = client.post(
         '/items/',
         headers={"X-Token": "llosavargasmario"},
@@ -60,9 +48,6 @@ def test_create_item():
 
 
 def test_create_item_bad_token():
-    """
-    Check that the endpoint returns an error if the token is invalid.
-    """
     response = client.post(
         "/items/",
         headers={"X-Token": "mendozamario"},
