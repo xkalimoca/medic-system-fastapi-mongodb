@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from models.paciente import Paciente 
+from src.models.paciente import Paciente 
 from config.db import conn 
 from schemas.paciente import serializeDict, serializeList
 from bson import ObjectId
