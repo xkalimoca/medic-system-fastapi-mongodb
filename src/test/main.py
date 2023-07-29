@@ -7,8 +7,8 @@ from pydantic import BaseModel
 fake_secret_token = "testunit"
 
 fake_db = {
-    "juanx": {"id": "1", "medico": "vsabando", "fecha": "23 de agosto", "hora":"10:30 pm", "confirmacion": "SI","codigo": "28963"},
-    "ggomez": {"id": "2", "medico": "dyanez", "fecha": "14 de septiembre", "hora":"8:30 pm", "confirmacion": "SI","codigo": "22015"},
+    "juanx": {"id": "juanx", "medico": "vsabando", "fecha": "23 de agosto", "hora":"10:30 pm", "confirmacion": "SI","codigo": "28963"},
+    "ggomez": {"id": "ggomez", "medico": "dyanez", "fecha": "14 de septiembre", "hora":"8:30 pm", "confirmacion": "SI","codigo": "22015"},
 }
 
 app = FastAPI()
