@@ -3,6 +3,7 @@ from src.models.user import User
 from src.config.db import conn 
 from src.schemas.user import serializeDict, serializeList
 from bson import ObjectId
+
 user = APIRouter() 
 
 @user.get('/users/',tags=["users"])

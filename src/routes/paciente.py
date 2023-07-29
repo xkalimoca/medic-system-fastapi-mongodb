@@ -3,6 +3,7 @@ from src.models.paciente import Paciente
 from src.config.db import conn 
 from src.schemas.paciente import serializeDict, serializeList
 from bson import ObjectId
+
 paciente = APIRouter() 
 
 @paciente.get('/pacientes/',tags=["pacientes"])

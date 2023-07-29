@@ -3,6 +3,7 @@ from src.models.medico import Medico
 from src.config.db import conn 
 from src.schemas.medico import serializeDict, serializeList
 from bson import ObjectId
+
 medico = APIRouter() 
 
 @medico.get('/medicos/',tags=["medicos"])

@@ -3,6 +3,7 @@ from src.models.cita import Cita
 from src.config.db import conn 
 from src.schemas.cita import serializeDict, serializeList
 from bson import ObjectId
+
 cita = APIRouter() 
 
 @cita.get('/citas/',tags=["citas"])
