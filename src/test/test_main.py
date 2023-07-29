@@ -1,11 +1,13 @@
+# tests/test_main.py
 from fastapi.testclient import TestClient
-from fastapi import status
-from .main import app
+from main import app
 
 client = TestClient(app)
 
-def test_index_returns_correct():
-    response = client.get('/')
+def test_docs_url():
+    response = client.get("/api/v2/docs")
+    assert response.status_code == 200
 
-    assert response.status_code == status.HTTP_200_OK
-    assert response.json() == {"message":"Hello World"}
+def test_redoc_url():
+    response = client.get("/api/v2/redocs")
+    assert response.status_code == 200
