@@ -3,6 +3,7 @@ from src.models.consultorio import Consultorio
 from src.config.db import conn 
 from src.schemas.consultorio import serializeDict, serializeList
 from bson import ObjectId
+
 consultorio = APIRouter() 
 
 @consultorio.get('/consultorio/',tags=["consultorio"])
