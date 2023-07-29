@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from src.models.user import User 
-from config.db import conn 
-from schemas.user import serializeDict, serializeList
+from src.config.db import conn 
+from src.schemas.user import serializeDict, serializeList
 from bson import ObjectId
 user = APIRouter() 
 

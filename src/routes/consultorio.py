@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from models.consultorio import Consultorio 
-from config.db import conn 
-from schemas.consultorio import serializeDict, serializeList
+from src.models.consultorio import Consultorio 
+from src.config.db import conn 
+from src.schemas.consultorio import serializeDict, serializeList
 from bson import ObjectId
 consultorio = APIRouter() 
 

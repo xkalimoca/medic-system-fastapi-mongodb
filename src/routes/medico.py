@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from models.medico import Medico 
+from src.models.medico import Medico 
 from config.db import conn 
 from schemas.medico import serializeDict, serializeList
 from bson import ObjectId

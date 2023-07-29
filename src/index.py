@@ -1,9 +1,9 @@
 from fastapi import FastAPI
-from routes.user import user
-from routes.consultorio import consultorio
-from routes.paciente import paciente
-from routes.medico import medico
-from routes.cita import cita
+from src.routes.user import user
+from src.routes.consultorio import consultorio
+from src.routes.paciente import paciente
+from src.routes.medico import medico
+from src.routes.cita import cita
 from docs import tags_metadata
 
 app = FastAPI(

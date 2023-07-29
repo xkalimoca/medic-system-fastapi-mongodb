@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from models.cita import Cita 
+from src.models.cita import Cita 
 from config.db import conn 
 from schemas.cita import serializeDict, serializeList
 from bson import ObjectId
